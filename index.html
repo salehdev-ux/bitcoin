@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BITCOIN — Sound Money Series</title>
+<meta name="description" content="A dithered, noisy, ASCII-soaked tribute to Bitcoin — proof of work, rendered live in your browser.">
+<meta name="theme-color" content="#0E0C09">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ccircle%20cx='16'%20cy='16'%20r='15'%20fill='%23F7931A'/%3E%3Ctext%20x='16'%20y='22.5'%20text-anchor='middle'%20font-family='Arial'%20font-weight='900'%20font-size='17'%20transform='rotate(-12%2016%2016)'%20fill='%230E0C09'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<noscript><style>#preloader{display:none!important}.reveal,.w{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body class="loading">
+
+<!-- ══════════════ PRELOADER ══════════════ -->
+<div id="preloader" hidden>
+  <pre id="preLines" aria-hidden="true"></pre>
+</div>
+
+<!-- ══════════════ GLOBAL FX LAYERS ══════════════ -->
+<canvas id="grain" aria-hidden="true"></canvas>
+<div id="scanlines" aria-hidden="true"></div>
+<div id="progress" aria-hidden="true"></div>
+<div id="flash" aria-hidden="true"></div>
+<div id="toast" role="status"></div>
+<div id="cursor" aria-hidden="true"><div class="c-dot"></div><div class="c-ring"></div></div>
+
+<!-- ══════════════ NAV ══════════════ -->
+<header id="nav" data-navtheme="ink">
+  <a class="nav-logo" href="#hero" aria-label="Back to top">
+    <svg class="btc-mark" viewBox="0 0 32 32" aria-hidden="true">
+      <circle cx="16" cy="16" r="15" fill="#F7931A"/>
+      <g fill="#F4EDE3">
+        <rect x="17.2" y="4.6" width="2.4" height="5"/>
+        <rect x="17.2" y="22.4" width="2.4" height="5"/>
+        <text x="15.5" y="22.4" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="17.5" transform="rotate(-12 16 16)">B</text>
+      </g>
+    </svg>
+    <span>PROTOCOL</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="#manifesto">PROMISE</a>
+    <a href="#genesis">GENESIS</a>
+    <a href="#mining">MINING</a>
+    <a href="#supply">SCARCITY</a>
+    <a href="#features">WHY</a>
+  </nav>
+  <div class="nav-right">
+    <div class="nav-price"><span class="np-label">BTC/USD</span><span id="navPrice">———</span><span id="navPriceTag" class="np-tag">SIM</span></div>
+    <a class="btn btn-small nav-wp" href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener">WHITEPAPER&nbsp;↗</a>
+  </div>
+</header>
+
+<main>
+  <!-- ══════════════ HERO ══════════════ -->
+  <section id="hero" data-theme="ink">
+    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+
+    <span class="mark tl" aria-hidden="true"></span>
+    <span class="mark tr" aria-hidden="true"></span>
+    <span class="mark bl" aria-hidden="true"></span>
+    <span class="mark br" aria-hidden="true"></span>
+
+    <p class="micro hero-micro hero-top">SOUND&nbsp;MONEY&nbsp;SERIES&nbsp;—&nbsp;BLOCK&nbsp;0&nbsp;—&nbsp;2009</p>
+
+    <div class="hero-content">
+      <h1 id="heroTitle" class="display" data-split="chars" data-manual aria-label="Bitcoin">Bitcoin</h1>
+      <p class="hero-sub">the sound-money poster — dithered, hashed & rendered live</p>
+    </div>
+
+    <p class="micro hero-micro hero-bottom">PEER&nbsp;TO&nbsp;PEER&nbsp;·&nbsp;TRUSTLESS&nbsp;·&nbsp;ABSOLUTELY&nbsp;SCARCE</p>
+    <p class="micro hero-specs">BAYER&nbsp;8×8&nbsp;—&nbsp;DITHER&nbsp;v26<br>INK&nbsp;№&nbsp;F7931A&nbsp;+&nbsp;NIGHT</p>
+    <p class="micro hero-side">SHA-256&nbsp;·&nbsp;PROOF&nbsp;OF&nbsp;WORK&nbsp;·&nbsp;№&nbsp;21&nbsp;/&nbsp;21&nbsp;000&nbsp;000</p>
+    <p class="micro scroll-hint">SCROLL&nbsp;↓</p>
+  </section>
+
+  <!-- ══════════════ TICKER ══════════════ -->
+  <div class="ticker" data-theme="orange" aria-label="Network ticker">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <!-- ══════════════ 01 · MANIFESTO ══════════════ -->
+  <section id="manifesto" class="sec" data-theme="paper">
+    <div class="sec-inner man-grid">
+      <div>
+        <div class="chapter reveal"><span class="ch-idx">01</span><i class="ch-rule"></i><span class="ch-name" data-scramble>THE PROMISE</span></div>
+        <h2 class="h2" data-split>Money without <em>rulers.</em></h2>
+        <p class="copy reveal">Bitcoin is money with no issuer and no counterparty — a ledger kept by tens of thousands of independent computers and verified with pure mathematics. Nobody can print it, freeze it, or vote its rules away. Not a bank. Not a state. Not even Satoshi.</p>
+        <p class="copy copy-dim reveal">This page is a tribute: every texture is dithered pixel-by-pixel, the coin beside you is drawn in pure text, and the mining rig below is your own CPU.</p>
+        <div class="stats reveal">
+          <div class="stat"><b>99.987%</b><i>network uptime since 2009</i></div>
+          <div class="stat"><b>0</b><i>double-spends on the base layer</i></div>
+          <div class="stat"><b>≈17,000</b><i>full nodes enforcing rules</i></div>
+          <div class="stat"><b>10&nbsp;MIN</b><i>heartbeat — every block, forever</i></div>
+        </div>
+      </div>
+      <figure class="man-fig reveal">
+        <div class="dither-frame"><canvas id="coinCanvas" data-hover aria-label="Dithered bitcoin coin"></canvas></div>
+        <figcaption class="dither-cap"><span>FIG. 01 — THE COIN, DITHERED</span><span>HOVER TO DISTURB</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ══════════════ 02 · GENESIS ══════════════ -->
+  <section id="genesis" class="sec" data-theme="ink">
+    <canvas id="rainCanvas" aria-hidden="true"></canvas>
+    <div class="sec-inner gen-inner">
+      <div class="chapter reveal"><span class="ch-idx">02</span><i class="ch-rule"></i><span class="ch-name" data-scramble>THE GENESIS BLOCK</span></div>
+      <h2 class="h2" data-split>It began with a <em>headline.</em></h2>
+      <p class="copy copy-dim reveal">Embedded inside block zero is the front page of The Times from January 3, 2009 — part timestamp, part thesis: a system built for the day banks need bailouts.</p>
+
+      <div class="terminal reveal">
+        <div class="term-bar"><span class="dot"></span><span class="term-title">satoshi@genesis — verity.sh</span><span class="term-live" data-state="ok">VERIFIED ✓</span></div>
+        <div class="term-body">
+          <p class="type-line" id="typeLine">> DECODE(coinbase): </p>
+          <pre class="gen-pre">┌─ BLOCK 0 ────────────────────────────────────┐
+  <span class="gen-key">date</span>      2009-01-03 18:15:05 GMT
+  <span class="gen-key">prev</span>      00000000000000000000000000000000
+            <span class="gen-dim">(nothing before it — ever)</span>
+  <span class="gen-key">nonce</span>     2083236893
+  <span class="gen-key">bits</span>      0x1d00ffff
+  <span class="gen-key">reward</span>    50 BTC — <span class="gen-dim">unspendable by design</span>
+  <span class="gen-key">hash</span>      <span class="gen-hash">000000000019d6689c085ae165831e93
+            4ff763ae46a2a6c172b3f1b60a8ce26f</span>
+└──────────────────────────────────────────────┘</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 03 · MINING ══════════════ -->
+  <section id="mining" class="sec" data-theme="paper">
+    <div class="sec-inner">
+      <div class="chapter reveal"><span class="ch-idx">03</span><i class="ch-rule"></i><span class="ch-name" data-scramble>PROOF OF WORK</span></div>
+      <h2 class="h2" data-split>Proof of <em>work,</em> not words.</h2>
+
+      <figure class="quote reveal">
+        <blockquote>“If you don’t believe it or don’t get it, I don’t have the time to try to convince you, sorry.”</blockquote>
+        <figcaption>— SATOSHI NAKAMOTO, 2010</figcaption>
+      </figure>
+
+      <p class="copy reveal">Every ~10 minutes the network seals its ledger with a lottery nobody can rig: find a hash that starts with enough zeros. The real network grinds through ~10<sup>20</sup> tries per second. Below is a pocket version — same math, real SHA-256, your CPU.</p>
+
+      <div class="terminal mine-terminal reveal" id="mineCard">
+        <div class="term-bar"><span class="dot"></span><span class="term-title">mining.exe — sha256(block_candidate)</span><span class="term-live" id="mineStatus" data-state="idle">IDLE</span></div>
+        <div class="term-body">
+          <div class="mine-row"><span class="gen-key">TARGET</span><code id="mineTarget">0000****************…</code></div>
+          <div class="mine-hashline" id="mineHash">— press START MINING to grind real hashes —</div>
+          <div class="mine-stats">
+            <div><b id="mineAttempts">0</b><i>HASHES</i></div>
+            <div><b id="mineNonce">0</b><i>NONCE</i></div>
+            <div><b id="mineRate">0</b><i>H / SEC</i></div>
+            <div><b id="mineBest">0</b><i>BEST ZERO RUN</i></div>
+          </div>
+          <div class="mine-progress"><i id="mineBar"></i></div>
+          <div class="mine-controls">
+            <button class="btn btn-solid" id="mineBtn" type="button">START MINING</button>
+            <button class="btn" id="mineReset" type="button">RESET</button>
+            <div class="diff" role="group" aria-label="Difficulty">
+              <span class="gen-key">DIFF</span>
+              <button type="button" data-d="4" class="on">0000</button>
+              <button type="button" data-d="5">00000</button>
+              <button type="button" data-d="6">000000</button>
+            </div>
+          </div>
+          <p class="mine-note gen-dim">avg ≈ 65,536 hashes per block at difficulty 0000 — no ASIC required</p>
+          <div class="mine-log" id="mineLog" aria-live="polite"></div>
+        </div>
+        <div class="stamp" id="stamp" aria-hidden="true">BLOCK<br>FOUND</div>
+        <canvas id="confetti" aria-hidden="true"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 04 · SCARCITY ══════════════ -->
+  <section id="supply" class="sec" data-theme="ink">
+    <div class="sec-inner sup-grid">
+      <div>
+        <div class="chapter reveal"><span class="ch-idx">04</span><i class="ch-rule"></i><span class="ch-name" data-scramble>SCARCITY ENGINE</span></div>
+        <h2 class="h2" data-split>The scarcity <em>engine.</em></h2>
+        <p class="copy copy-dim reveal">The schedule is absolute: 50, then 25, 12.5, 6.25, 3.125 — cut in half every 210,000 blocks until the final satoshi, around the year 2140. Scarcity isn’t promised. It’s computed.</p>
+
+        <div class="supply-hero reveal">
+          <div class="supply-num"><span id="supplyNum" data-count="20091375">0</span></div>
+          <div class="micro supply-cap">/ 21,000,000 — HARD-CODED. NO EXCEPTIONS.</div>
+        </div>
+
+        <figure class="bar-fig reveal">
+          <div class="dither-frame bar-frame"><canvas id="barCanvas" aria-label="Dithered supply bar"></canvas>
+            <span class="bar-pct" id="barPct">— MINED</span>
+          </div>
+          <figcaption class="dither-cap"><span>FIG. 02 — SUPPLY, DITHERED</span><span>FINAL SATOSHI ≈ 2140</span></figcaption>
+        </figure>
+
+        <div class="halving reveal">
+          <div class="micro hal-label">UNTIL THE NEXT HALVING — REWARD <span id="halReward">3.125</span> → <span id="halRewardNext">1.5625</span> BTC</div>
+          <div class="hal-grid">
+            <div class="hal-cell"><b id="halD">—</b><i>DAYS</i></div>
+            <div class="hal-cell"><b id="halH">—</b><i>HRS</i></div>
+            <div class="hal-cell"><b id="halM">—</b><i>MIN</i></div>
+            <div class="hal-cell"><b id="halS">—</b><i>SEC</i></div>
+          </div>
+          <div class="micro hal-sub">≈ BLOCK <span id="halBlock">1,050,000</span> · <span id="halBlocks">—</span> BLOCKS TO GO</div>
+        </div>
+      </div>
+
+      <aside class="coin-aside reveal">
+        <div class="dither-frame coin-frame">
+          <canvas id="asciiCoin" data-hover aria-label="ASCII coin, drag to spin"></canvas>
+          <span class="coin-tag micro">DRAG&nbsp;TO&nbsp;SPIN</span>
+        </div>
+        <figcaption class="dither-cap"><span>FIG. 03 — COIN, RENDERED IN TEXT</span><span>30&nbsp;FPS&nbsp;·&nbsp;0&nbsp;IMAGES</span></figcaption>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══════════════ 05 · WHY ══════════════ -->
+  <section id="features" class="sec" data-theme="paper">
+    <div class="sec-inner">
+      <div class="chapter reveal"><span class="ch-idx">05</span><i class="ch-rule"></i><span class="ch-name" data-scramble>WHY IT WINS</span></div>
+      <h2 class="h2" data-split>Built different, <em>on purpose.</em></h2>
+
+      <div class="cards">
+        <article class="card reveal" data-hover>
+          <div class="card-icon"><canvas id="iconScare" aria-label="Dithered icon: 21"></canvas></div>
+          <div class="card-body">
+            <h3 data-scramble>SCARCE</h3>
+            <p>21,000,000 coins. Ever. Issuance halves every 210,000 blocks and stops near 2140. No committee can vote the supply higher.</p>
+          </div>
+        </article>
+        <article class="card reveal" data-hover>
+          <div class="card-icon"><canvas id="iconKey" aria-label="Dithered icon: key"></canvas></div>
+          <div class="card-body">
+            <h3 data-scramble>SOVEREIGN</h3>
+            <p>Twelve words beat any bank. Your keys move value anywhere on Earth without asking a gatekeeper — the freezer has no door here.</p>
+          </div>
+        </article>
+        <article class="card reveal" data-hover>
+          <div class="card-icon"><canvas id="iconNet" aria-label="Dithered icon: network"></canvas></div>
+          <div class="card-body">
+            <h3 data-scramble>PERMISSIONLESS</h3>
+            <p>No account, no approval, no office hours. Anyone, anywhere, on any hardware can verify every rule down to the last byte.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer id="footer" class="sec" data-theme="ink">
+  <div class="sec-inner">
+    <p class="foot-ascii" aria-hidden="true">·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·∴·:·</p>
+    <h2 class="foot-display" data-split><span>Stay humble,</span><br><em>stack sats.</em></h2>
+    <div class="foot-cta reveal">
+      <a class="btn btn-solid" href="https://bitcoin.org/en/full-node" target="_blank" rel="noopener">RUN A NODE ↗</a>
+      <a class="btn" href="https://mempool.space" target="_blank" rel="noopener">WATCH MEMPOOL ↗</a>
+      <a class="btn" href="https://bitcoin.design" target="_blank" rel="noopener">BITCOIN DESIGN ↗</a>
+    </div>
+    <div class="foot-grid">
+      <div>
+        <h4 class="micro">PROTOCOL</h4>
+        <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener">Whitepaper (PDF)</a>
+        <a href="https://developer.bitcoin.org" target="_blank" rel="noopener">Developer docs</a>
+        <a href="https://github.com/bitcoin/bitcoin" target="_blank" rel="noopener">Bitcoin Core</a>
+      </div>
+      <div>
+        <h4 class="micro">NETWORK</h4>
+        <a href="https://mempool.space" target="_blank" rel="noopener">Mempool explorer</a>
+        <a href="https://blockstream.info" target="_blank" rel="noopener">Blockstream explorer</a>
+        <a href="https://mempool.space/testnet" target="_blank" rel="noopener">Testnet</a>
+      </div>
+      <div>
+        <h4 class="micro">COLOPHON</h4>
+        <a href="#hero">Fraunces · Space Grotesk · Plex Mono</a>
+        <a href="#hero">Bayer 8×8 dither · film grain · ASCII</a>
+        <a href="#hero">Made with proof of work</a>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <span>© 2009 — ∞ · NO RIGHTS RESERVED</span>
+      <span>BX01 — DESIGNED IN THE MEMPOOL</span>
+      <a href="#hero">BACK TO BLOCK 0 ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script defer src="js/dither.js"></script>
+<script defer src="js/ascii.js"></script>
+<script defer src="js/miner.js"></script>
+<script defer src="js/main.js"></script>
+</body>
+</html>
