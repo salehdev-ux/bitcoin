@@ -1,3 +1,5 @@
+Link:https://salehdev-ux.github.io/bitcoin/
+
 # ₿ BITCOIN — SOUND MONEY SERIES
 
 A single-page tribute site to Bitcoin, built as a **living dithered poster**.
